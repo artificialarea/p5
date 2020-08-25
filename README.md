@@ -2,11 +2,16 @@
 
 practice...
 
-## Browser Noise: Web Audio Tutorial Playlist
+## Browser Noise Tutorial: Web Audio API with p5.js + tone.js
 
 src: [YouTube Playlist](https://www.youtube.com/watch?v=mmluIbsmvoY&list=PLLgJJsrdwhPywJe2TmMzYNKHdIZ3PASbr)
 
-Note: uses **[p5.js](https://p5js.org/)** javascript library. p5.js is an interpretation of [Processing](https://processing.org/) for today’s web: "... for creative coding, with a focus on making coding accessible and inclusive for artists, designers, educators, beginners, and anyone else! p5.js is free and open-source because we believe software, and the tools to learn it, should be accessible to everyone." Created by [Lauren Lee McCarthy](https://lauren-mccarthy.com/Info).
+<br />
+
+### p5.js
+Uses **[p5.js](https://p5js.org/)** javascript library. Further info below.
+
+p5.js is an interpretation of [Processing](https://processing.org/) for the web: "... for creative coding, with a focus on making coding accessible and inclusive for artists, designers, educators, beginners, and anyone else! p5.js is free and open-source because we believe software, and the tools to learn it, should be accessible to everyone." Created by [Lauren Lee McCarthy](https://lauren-mccarthy.com/Info). Very cool community. Perhaps I'll be able to contribute to the open source someday ( ._.)
 
 Ref:
 * https://github.com/processing/p5.js
@@ -16,6 +21,14 @@ Ref:
 * https://p5js.org/download/
 
 **Local Server issue.** Node `http-server` localhost for Chrome doesn't work properly. Dunno why. Works fine in Firefox and Safari. Hmm. Soooooo, added **Web Server fro Chrome** extension for now, per https://github.com/processing/p5.js/wiki/Local-server
+
+<br />
+
+### Tone.js
+
+* https://tonejs.github.io/
+* https://tonejs.github.io/docs
+* https://github.com/Tonejs/Tone.js
 
 
 <br />
