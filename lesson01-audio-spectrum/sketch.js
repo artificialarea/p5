@@ -28,6 +28,9 @@ function setup() {
     chooseNoise.option('brown');
     chooseNoise.changed(() => {
         mrNoisy.setType(chooseNoise.value());
+        (chooseNoise.value() == 'brown')
+                ? fill('#A68D87')
+                : fill(chooseNoise.value());
     });
 
     // setVolume = createSlider(0, 1, 0.1, 0);  // syntax: createSlider(min, max, [value], [step])
@@ -65,8 +68,8 @@ function setup() {
     });
 
     // for spectrum vertex
-    stroke(255);
-    noFill();
+    fill(255);
+    noStroke();
     
 }
 
@@ -75,18 +78,27 @@ function draw() {   // draw constantly re-renders at ~60fps
     let spectrum = fft.analyze();  
     
     beginShape();
-    // vertex(0, height);
+    vertex(0, height);
     for (let i = 0; i < spectrum.length; i++) {
         // map vertices relative to the dimensions of the canvas
         // syntax: point(x, y)
         vertex(map(log(i), 0, log(spectrum.length), 0, width), map(spectrum[i], 0, 255, height, 0))    // [f4]
         // syntax: map(value, start1, stop1, start2, stop2, [withinBounds])
     }
-    // vertex(width, height);
+    vertex(width, height);
     endShape();
 }
 
-// FOOTNOTES
+//  Finally, as some browsers require users to startAudioContext with a user gesture
+function touchStarted() {
+    if (getAudioContext().state !== 'running') {
+        getAudioContext().resume();
+    }
+}
+
+
+
+// FOOTNOTES /////////////////////////////////
 
 // [f1] Instructor Dan Tramte was keen at this point to focus on DOM elements (and manipulation) instead of relying on p5 canvas and the draw() function or animate to handle events. DOM elements are far less taxing; they don't need to be redrawn 60 times a second or spamming your audio objects with parameters that you're constantly setting in the draw function
 
