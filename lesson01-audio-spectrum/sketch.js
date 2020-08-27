@@ -84,7 +84,7 @@ function draw() {   // draw constantly re-renders at ~60fps
 
 // FOOTNOTES
 
-// [f1] Instructor Dan was keen at this point to focus on DOM elements (and manipulation) instead of relying on p5 canvas and the draw() function or animate to handle events. DOM elements are far less taxing; they don't need to be redrawn 60 times a second or spamming your audio objects with parameters that you're constantly setting in the draw function
+// [f1] Instructor Dan Tramte was keen at this point to focus on DOM elements (and manipulation) instead of relying on p5 canvas and the draw() function or animate to handle events. DOM elements are far less taxing; they don't need to be redrawn 60 times a second or spamming your audio objects with parameters that you're constantly setting in the draw function
 
 // [f2] As there appeared to be no property in p5 to change innerHTML text of an element, I was resorting to Vanilla JS function >> function changeText(text) { document.querySelector('button').innerHTML = text; }
 // ... but turns out there actually is an `.html()` method in p5. It's not easily found in their documentation, buried as a method within the `p5.Element` base class: https://p5js.org/reference/#/p5.Element
