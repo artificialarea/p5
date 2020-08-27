@@ -75,7 +75,7 @@ function draw() {   // draw constantly re-renders at ~60fps
     for (let i = 0; i < spectrum.length; i++) {
         // map points relative to the dimensions of the canvas
         // syntax: point(x, y)
-        point(map(log(i), 0, log(spectrum.length), 0, width), map(spectrum[i], 0, 255, height, 0))    // [f4]
+        point(map(i, 0, spectrum.length, 0, width), map(spectrum[i], 0, 255, height, 0))    // [f4]
         // syntax: map(value, start1, stop1, start2, stop2, [withinBounds])
 
         // point(i, spectrum[i]);  // earlier, prior to map [f3]
