@@ -37,7 +37,7 @@ function setup() {
         // [f4] convert decibles to amplitude
         // formula: amplitude = 10^(decibles/20) // syntax: pow(base, exponent)
         // pow(10, setVolume.value()/20)    
-        if (setVolume.value() > -56) {
+        if (setVolume.value() > -59) {
             mrNoisy.amp(    // syntax: amp([vol], [slewTime], [tFromNow])
                 pow(10, setVolume.value()/20),
                 0.01
@@ -46,7 +46,7 @@ function setup() {
             // ^^ slightly hacky conditional required 
             // to temper decibles to sound as if at absolute zero 
             // syntax: map(value, start1, stop1, start2, stop2, [withinBounds])
-            mrNoisy.amp(map(setVolume.value(), -60, -56, 0, 0.00016), 0.1); 
+            mrNoisy.amp(map(setVolume.value(), -60, -59, 0, 0.00016), 0.1); 
         }
     });
 
@@ -64,22 +64,26 @@ function setup() {
         }
     });
 
-    // for spectrum points
+    // for spectrum vertex
     stroke(255);
+    noFill();
     
 }
 
 function draw() {   // draw constantly re-renders at ~60fps 
     background(80);
-    let spectrum = fft.analyze();       
+    let spectrum = fft.analyze();  
+    
+    beginShape();
+    // vertex(0, height);
     for (let i = 0; i < spectrum.length; i++) {
-        // map points relative to the dimensions of the canvas
+        // map vertices relative to the dimensions of the canvas
         // syntax: point(x, y)
-        point(map(log(i), 0, log(spectrum.length), 0, width), map(spectrum[i], 0, 255, height, 0))    // [f4]
+        vertex(map(log(i), 0, log(spectrum.length), 0, width), map(spectrum[i], 0, 255, height, 0))    // [f4]
         // syntax: map(value, start1, stop1, start2, stop2, [withinBounds])
-
-        // point(i, spectrum[i]);  // earlier, prior to map [f3]
     }
+    // vertex(width, height);
+    endShape();
 }
 
 // FOOTNOTES
