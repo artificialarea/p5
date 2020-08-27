@@ -3,8 +3,11 @@
 practice...
 
 ## Browser Noise Tutorial: Web Audio API with p5.js + tone.js
-
 src: [YouTube Playlist](https://www.youtube.com/watch?v=mmluIbsmvoY&list=PLLgJJsrdwhPywJe2TmMzYNKHdIZ3PASbr)
+
+### LESSON 01
+tutorials: 1 - 7
+
 
 <br />
 
