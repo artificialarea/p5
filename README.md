@@ -42,8 +42,8 @@ Ref:
 src: https://github.com/processing/p5.js/wiki/p5.js-overview
 There are two main functions you will use in your program. The `setup()` block runs once, and is typically used for initialization, or for creating a program that does not need a loop running code repeatedly. The `draw()` block runs repeatedly, and is used for animation.
 
-
-
+### Compensating for Logarithmic Hearing
+[Fascinating talk by Dan Tramte in Lesson 6](https://youtu.be/GLOZMmT5Oz4) about human perception of sound, in which the ear and the brain interprets loudness not on the linear (Pascal) intensity scale, but on a logarithmic scale in units of decibles.
 
 
 
