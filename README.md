@@ -15,12 +15,14 @@ p5.js is an interpretation of [Processing](https://processing.org/) for the web:
 
 Ref:
 * https://github.com/processing/p5.js
+* https://github.com/processing/p5.js/wiki/p5.js-overview
 * https://github.com/processing/p5.js/tree/main/contributor_docs
 * https://p5js.org/reference/#/libraries/p5.sound
 * https://github.com/processing/p5.js-sound
-* https://p5js.org/download/
 
-**Local Server issue.** Node `http-server` localhost for Chrome doesn't work properly. Dunno why. Works fine in Firefox and Safari. Hmm. Soooooo, added **Web Server fro Chrome** extension for now, per https://github.com/processing/p5.js/wiki/Local-server
+* https://p5js.org/learn/
+    * https://github.com/processing/p5.js/wiki/p5.js,-node.js,-socket.io
+
 
 <br />
 
@@ -31,7 +33,29 @@ Ref:
 * https://github.com/Tonejs/Tone.js
 
 
+
 <br />
+
+# Personal Notes...
+
+### Overview
+src: https://github.com/processing/p5.js/wiki/p5.js-overview
+There are two main functions you will use in your program. The `setup()` block runs once, and is typically used for initialization, or for creating a program that does not need a loop running code repeatedly. The `draw()` block runs repeatedly, and is used for animation.
+
+
+
+
+
+
+
+
+
+
+<br />
+
+<br />
+
+_via https://p5js.org/download/_
 
 # Welcome to p5.js
 

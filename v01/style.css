@@ -1,8 +1,14 @@
 body {
     padding: 0;
-    margin: 0;
+    margin: 20px;
 }
 
 button {
     width: 50px;
+}
+
+.p5Canvas {
+    position: absolute;
+    left: 30px;
+    top: 80px;
 }
