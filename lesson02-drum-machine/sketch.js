@@ -1,19 +1,21 @@
 /* eslint-disable indent */
 
-let hh, clap, bass; // INSTRUMENT SOUND. Sound Source Container. Like MrNoisy earlier, will serve as a container that holds a sound source, which we will be able to call methods on to get it to do things like play, etc.
-let hPat, cPat, bPat; // INSTRUMENT PATTERN/SEQUENCE. It will be an array of boolean numbers that we can manipulate to make beats.
-let hPhrase, cPhrase, bPhrase; // INSTRUMENT PHRASE. Defines how the instrument pattern (hPat, etc.) is interpreted.
-let drums; // PART. We will attach the phrase to the part —— via addPhrase() —— which will serve as our transport to drive the phrase. A p5.Part plays back one or more p5.Phrases.
+let hh, clap, bass;             // INSTRUMENT SOUND. Sound Source Container. Like MrNoisy earlier, will serve as a container that holds a sound source, which we will be able to call methods on to get it to do things like play, etc.
+let hPat, cPat, bPat;           // INSTRUMENT PATTERN/SEQUENCE. It will be an array of boolean numbers that we can manipulate to make beats.
+let hPhrase, cPhrase, bPhrase;  // INSTRUMENT PHRASE. Defines how the instrument pattern (hPat, etc.) is interpreted.
+let drums;                      // PART. We will attach the phrase to the part —— via addPhrase() —— which will serve as our transport to drive the phrase. A p5.Part plays back one or more p5.Phrases.
 let bpmCTRL;
 let beatLength;
 let instrumentsNum;
 let cellWidth;
 let cellHeight;
+let cnv;  // assign Canvas, enabling us to attach eventListener to DOM element.
 
 function preload() { } // [f1]
 
 function setup() {
-    createCanvas(320, 60);
+    cnv = createCanvas(320, 60);
+    cnv.mousePressed(canvasPressed); 
 
     instrumentsNum = 3;
     beatLength = 16;
@@ -52,9 +54,44 @@ function setup() {
     });
     drums.setBPM('80');
 
-    // DRUM MATRIX INTERFACE (line grid with dots approach)
-    background(80);
+    drawMatrix();
+}
 
+function keyPressed() {
+    if (key === " ") {  // key: [spacebar]
+        if (hh.isLoaded() && clap.isLoaded() && bass.isLoaded()) {
+            // toggle on/off
+            if (!drums.isPlaying) {
+                drums.loop();
+            } else {
+                drums.stop();
+            }
+        } else {
+            console.log('oops, all drums haven\'t loaded yet... please be patient.');
+        }
+    }
+}
+
+function canvasPressed() {
+    let rowClicked = floor(instrumentsNum * mouseY / height);
+    let indexClicked = floor(beatLength * mouseX / width);
+    if (rowClicked === 0) {
+        hPat[indexClicked] = invert( hPat[indexClicked] );
+    } else if (rowClicked === 1) {
+        cPat[indexClicked] = invert( cPat[indexClicked] );
+    } else if (rowClicked === 2) {
+        bPat[indexClicked] = invert( bPat[indexClicked] );
+    }
+
+    function invert(bitInput) {  // [f2]!!!!!!
+        return bitInput ? 0 : 1; 
+    }
+ 
+    drawMatrix();
+}
+
+function drawMatrix() {
+    background(80);
     // GRID 
     stroke('grey');
     strokeWeight(2);
@@ -78,26 +115,6 @@ function setup() {
             ellipse(i * cellWidth + 0.5 * cellWidth, height * 5/6, 10);
         }
     }
-    
-
-
-
-
-}
-
-function keyPressed() {
-    if (key === " ") {  // key: [spacebar]
-        if (hh.isLoaded() && clap.isLoaded() && bass.isLoaded()) {
-            // toggle on/off
-            if (!drums.isPlaying) {
-                drums.loop();
-            } else {
-                drums.stop();
-            }
-        } else {
-            console.log('oops, all drums haven\'t loaded yet... please be patient.');
-        }
-    }
 }
 
 
@@ -114,3 +131,9 @@ function touchStarted() {
 
 // [f1] preload() function -vs- callback function
 // Note that there is a predefined p5 preload() function that can be used to asychronously call elements and -- one those promises have been fullfilled -- will subsequently invoke the setup() and draw() functions. Outside of preload, we can employ a callback function as the second parameter in particular methods when making asychnronous calls... as I did for loadSound() method in setup().
+
+// [f2] conditional boolean syntax
+// Checkout: https://youtu.be/hP01m_gX7Uw?t=569
+// very very cool demonstration of various conditional boolean syntax approaches!
+// like, 
+// return +!bitInput 

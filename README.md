@@ -8,12 +8,21 @@ src: [YouTube Playlist](https://www.youtube.com/watch?v=mmluIbsmvoY&list=PLLgJJs
 ### Project 01: AUDIO SPECTRUM
 tutorials: 1 - 7
 
+**FOOTNOTES** in sketch.js
+
 Additonally: another project challenge outlined here: https://youtu.be/bNXDC2lrm4U?t=326
 
 <br />
 
 ### Project 02: DRUM MACHINE
 tutorials: 8 - 
+
+**FOOTNOTES** in sketch.js
+
+**Additonal Notes...**
+
+**WHEN IN DEV TOOLS MODE** for some reason audio fails to play in Chrome or Safari. Works fine otherwise. Works in all scenarios in Firefox.
+
 
 <br />
 
