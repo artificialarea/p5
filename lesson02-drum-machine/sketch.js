@@ -5,11 +5,20 @@ let hPat, cPat, bPat; // INSTRUMENT PATTERN/SEQUENCE. It will be an array of boo
 let hPhrase, cPhrase, bPhrase; // INSTRUMENT PHRASE. Defines how the instrument pattern (hPat, etc.) is interpreted.
 let drums; // PART. We will attach the phrase to the part —— via addPhrase() —— which will serve as our transport to drive the phrase. A p5.Part plays back one or more p5.Phrases.
 let bpmCTRL;
+let beatLength;
+let instrumentsNum;
+let cellWidth;
+let cellHeight;
 
 function preload() { } // [f1]
 
 function setup() {
-    createCanvas(400, 400);
+    createCanvas(320, 60);
+
+    instrumentsNum = 3;
+    beatLength = 16;
+    cellWidth = width/beatLength;
+    cellHeight = height/instrumentsNum;
 
     // syntax: loadSound(path, [successCallback], [errorCallback], [whileLoading])
     hh = loadSound('./assets/hh_sample.mp3', () => { }); // [f1]
@@ -42,6 +51,38 @@ function setup() {
         // console.log(`bpm: `, drums.getBPM()); // nope. errors?!?
     });
     drums.setBPM('80');
+
+    // DRUM MATRIX INTERFACE (line grid with dots approach)
+    background(80);
+
+    // GRID 
+    stroke('grey');
+    strokeWeight(2);
+    for (let i = 0; i < beatLength + 1; i++) {
+        // syntax: line(startx, starty, endx, endy)
+        line(i * cellWidth, 0, i * cellWidth, height);
+    }
+    for (let i = 0; i < instrumentsNum + 1; i++) {
+        line(0, i * cellHeight, width, i * cellHeight); 
+    }
+    // BEATS 
+    noStroke();
+    for (let i = 0; i < beatLength; i++) {
+        if (hPat[i] === 1) {
+            ellipse(i * cellWidth + 0.5 * cellWidth, height * 1/6, 10);
+        }
+        if (cPat[i] === 1) {
+            ellipse(i * cellWidth + 0.5 * cellWidth, height * 3/6, 10);
+        }
+        if (bPat[i] === 1) {
+            ellipse(i * cellWidth + 0.5 * cellWidth, height * 5/6, 10);
+        }
+    }
+    
+
+
+
+
 }
 
 function keyPressed() {
