@@ -47,7 +47,7 @@ function setup() {
     drums.addPhrase(bPhrase);
 
     bpmCTRL = createSlider(30, 300, 80, 1);
-    bpmCTRL.position(10, 70);
+    bpmCTRL.position(17, 110);
     bpmCTRL.input(() => {
         drums.setBPM(bpmCTRL.value())
         // console.log(`bpm: `, drums.getBPM()); // nope. errors?!?

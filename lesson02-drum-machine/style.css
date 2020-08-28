@@ -1,4 +1,16 @@
 body {
     padding: 0;
-    margin: 0;
+    margin: 20px;
+    background-color: rgba(0, 0, 0, 0.80);
+}
+
+button {
+    width: 50px;
+    font-family: 'Courier';
+}
+
+.p5Canvas {
+    position: absolute;
+    left: 20px;
+    top: 20px;
 }
