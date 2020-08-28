@@ -1,9 +1,9 @@
 /* eslint-disable indent */
 
-let hh;         // HIHAT SOUND. Sound Source Container. Like MrNoisy earlier, will serve as a container that holds a sound source, which we will be able to call methods on to get it to do things like play, etc.
-let hPat;       // HIHAT PATTERN/SEQUENCE. It will be an array of boolean numbers that we can manipulate to make beats.
-let hPhrase;    // HIHAT PHRASE. Defines how the hihat pattern (hPat) is interpreted.
-let drums;      // PART. parts and phrases work together. We will attach the phrase to the part —— via addPhrase() -- which will serve as our transport to drive the phrase. A p5.Part plays back one or more p5.Phrases.
+let hh, clap, bass; // INSTRUMENT SOUND. Sound Source Container. Like MrNoisy earlier, will serve as a container that holds a sound source, which we will be able to call methods on to get it to do things like play, etc.
+let hPat, cPat, bPat; // INSTRUMENT PATTERN/SEQUENCE. It will be an array of boolean numbers that we can manipulate to make beats.
+let hPhrase, cPhrase, bPhrase; // INSTRUMENT PHRASE. Defines how the instrument pattern (hPat, etc.) is interpreted.
+let drums; // PART. We will attach the phrase to the part —— via addPhrase() —— which will serve as our transport to drive the phrase. A p5.Part plays back one or more p5.Phrases.
 
 /* ////////////////
 NOTE: Works fine in Firefox, but audio doesn't play in Chrome or Safari, apparently due to: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#webaudio 
@@ -11,29 +11,53 @@ NOTE: Works fine in Firefox, but audio doesn't play in Chrome or Safari, apparen
 I thought touchStarted() function to deal with Web Audio API audio context would resolve this, but apparently not. Hmmmm =/ 
 //////////////// */
 
-function preload() {}  // [f1]
+function preload() { } // [f1]
 
 function setup() {
     createCanvas(400, 400);
 
     // syntax: loadSound(path, [successCallback], [errorCallback], [whileLoading])
-    hh = loadSound('./assets/hh_sample.mp3', () => {drums.loop()});    // [f1]
+    hh = loadSound('./assets/hh_sample.mp3', () => { }); // [f1]
+    clap = loadSound('./assets/clap_sample.mp3', () => { });
+    bass = loadSound('./assets/bass_sample.mp3', () => { });
 
-    hPat = [1, 0, 1, 0];
+    hPat = [1, 1, 1, 1];
+    cPat = [0, 0, 0, 0];
+    bPat = [1, 0, 0, 0];
 
     // syntax: new p5.Phrase(name, callback, sequence)
     hPhrase = new p5.Phrase('hh', (time) => {
-        hh.play(time);
+        // syntax: play([startTime], [rate], [amp], [cueStart], [duration])
+        hh.play(time)
         console.log(time);
-    }, hPat );
+    }, hPat);
+    cPhrase = new p5.Phrase('clap', () => {clap.play()}, cPat);
+    bPhrase = new p5.Phrase('bass', () => {bass.play()}, bPat);
 
     drums = new p5.Part();
 
     drums.addPhrase(hPhrase);
+    drums.addPhrase(cPhrase);
+    drums.addPhrase(bPhrase);
+
+    drums.setBPM('60')
 
 }
 
-function draw() {}
+function keyPressed() {
+    if (key === " ") {  // [spacebar]
+        if (hh.isLoaded() && clap.isLoaded() && bass.isLoaded()) {
+            // toggle on/off
+            if (!drums.isPlaying) {
+                drums.loop();
+            } else {
+                drums.stop();
+            }
+        } else {
+            console.log('oops, all drums haven\'t loaded yet... please be patient.');
+        }
+    }
+}
 
 
 //  To address (Chrome) browser autoplay policy

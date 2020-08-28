@@ -29,6 +29,7 @@ Ref:
 * https://github.com/processing/p5.js/tree/main/contributor_docs
 * https://p5js.org/reference/#/libraries/p5.sound
 * https://github.com/processing/p5.js-sound
+* https://github.com/processing/p5.js/wiki/Local-server
 
 * https://p5js.org/learn/
     * https://github.com/processing/p5.js/wiki/p5.js,-node.js,-socket.io
