@@ -10,6 +10,8 @@ let instrumentsNum;
 let cellWidth;
 let cellHeight;
 let cnv;  // assign Canvas, enabling us to attach eventListener to DOM element.
+let sPat; // SEQUENCE PATTERN to draw playhead
+let cursorPos;
 
 function preload() { } // [f1]
 
@@ -19,6 +21,7 @@ function setup() {
 
     instrumentsNum = 3;
     beatLength = 16;
+    cursorPos = 0;
     cellWidth = width/beatLength;
     cellHeight = height/instrumentsNum;
 
@@ -30,6 +33,8 @@ function setup() {
     hPat = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     cPat = [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
     bPat = [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0];
+    //
+    sPat = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
     // syntax: new p5.Phrase(name, callback, sequence)
     hPhrase = new p5.Phrase('hh', (time) => {
@@ -45,6 +50,9 @@ function setup() {
     drums.addPhrase(hPhrase);
     drums.addPhrase(cPhrase);
     drums.addPhrase(bPhrase);
+    // can bypass `new p5.Phrase()` with just `p5.Part.addPhrase()`
+    // same syntax: .addPhrase(name, callback, sequence)
+    drums.addPhrase('seq', sequence, sPat);
 
     bpmCTRL = createSlider(30, 300, 80, 1);
     bpmCTRL.position(17, 110);
@@ -95,6 +103,7 @@ function drawMatrix() {
     // GRID 
     stroke('grey');
     strokeWeight(2);
+    fill('white');
     for (let i = 0; i < beatLength + 1; i++) {
         // syntax: line(startx, starty, endx, endy)
         line(i * cellWidth, 0, i * cellWidth, height);
@@ -115,10 +124,24 @@ function drawMatrix() {
             ellipse(i * cellWidth + 0.5 * cellWidth, height * 5/6, 10);
         }
     }
+    console.log('hPat: ', hPat)
+    console.log('cPat: ', cPat)
+    console.log('bPat: ', bPat)
 }
 
+function sequence(time, beatIndex) {
+    drawMatrix();
+    drawPlayhead(beatIndex);
+    // console.log(beatIndex);
+}
 
-//  To address (Chrome) browser autoplay policy
+function drawPlayhead(beatIndex) {
+    stroke('red');
+    fill(255, 0, 0, 30);  // r, g, b, alpha
+    rect((beatIndex -1) * cellWidth, 0, cellWidth, height);  // x, y, w, h, , ,
+}
+
+//  To address (Chrome) browser autoplay policy 
 function touchStarted() {
     if (getAudioContext().state !== 'running') {
         getAudioContext().resume();
