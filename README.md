@@ -5,12 +5,18 @@ practice...
 ## Browser Noise Tutorial: Web Audio API with p5.js + tone.js
 src: [YouTube Playlist](https://www.youtube.com/watch?v=mmluIbsmvoY&list=PLLgJJsrdwhPywJe2TmMzYNKHdIZ3PASbr) with instructor Dan Tramte.
 
-### PROJECT 01
+### Project 01: AUDIO SPECTRUM
 tutorials: 1 - 7
 
 Additonally: another project challenge outlined here: https://youtu.be/bNXDC2lrm4U?t=326
 
 <br />
+
+### Project 02: DRUM MACHINE
+tutorials: 8 - 
+
+<br />
+
 
 ### p5.js
 Uses **[p5.js](https://p5js.org/)** javascript library. Further info below.
