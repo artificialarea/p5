@@ -4,12 +4,7 @@ let hh, clap, bass; // INSTRUMENT SOUND. Sound Source Container. Like MrNoisy ea
 let hPat, cPat, bPat; // INSTRUMENT PATTERN/SEQUENCE. It will be an array of boolean numbers that we can manipulate to make beats.
 let hPhrase, cPhrase, bPhrase; // INSTRUMENT PHRASE. Defines how the instrument pattern (hPat, etc.) is interpreted.
 let drums; // PART. We will attach the phrase to the part —— via addPhrase() —— which will serve as our transport to drive the phrase. A p5.Part plays back one or more p5.Phrases.
-
-/* ////////////////
-NOTE: Works fine in Firefox, but audio doesn't play in Chrome or Safari, apparently due to: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#webaudio 
-
-I thought touchStarted() function to deal with Web Audio API audio context would resolve this, but apparently not. Hmmmm =/ 
-//////////////// */
+let bpmCTRL;
 
 function preload() { } // [f1]
 
@@ -21,18 +16,18 @@ function setup() {
     clap = loadSound('./assets/clap_sample.mp3', () => { });
     bass = loadSound('./assets/bass_sample.mp3', () => { });
 
-    hPat = [1, 1, 1, 1];
-    cPat = [0, 0, 0, 0];
-    bPat = [1, 0, 0, 0];
+    hPat = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+    cPat = [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
+    bPat = [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0];
 
     // syntax: new p5.Phrase(name, callback, sequence)
     hPhrase = new p5.Phrase('hh', (time) => {
         // syntax: play([startTime], [rate], [amp], [cueStart], [duration])
         hh.play(time)
-        console.log(time);
+        // console.log(time);
     }, hPat);
-    cPhrase = new p5.Phrase('clap', () => {clap.play()}, cPat);
-    bPhrase = new p5.Phrase('bass', () => {bass.play()}, bPat);
+    cPhrase = new p5.Phrase('clap', () => { clap.play() }, cPat);
+    bPhrase = new p5.Phrase('bass', () => { bass.play() }, bPat);
 
     drums = new p5.Part();
 
@@ -40,12 +35,17 @@ function setup() {
     drums.addPhrase(cPhrase);
     drums.addPhrase(bPhrase);
 
-    drums.setBPM('60')
-
+    bpmCTRL = createSlider(30, 300, 80, 1);
+    bpmCTRL.position(10, 70);
+    bpmCTRL.input(() => {
+        drums.setBPM(bpmCTRL.value())
+        // console.log(`bpm: `, drums.getBPM()); // nope. errors?!?
+    });
+    drums.setBPM('80');
 }
 
 function keyPressed() {
-    if (key === " ") {  // [spacebar]
+    if (key === " ") {  // key: [spacebar]
         if (hh.isLoaded() && clap.isLoaded() && bass.isLoaded()) {
             // toggle on/off
             if (!drums.isPlaying) {
